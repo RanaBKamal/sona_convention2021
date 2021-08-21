@@ -101,73 +101,6 @@
         </div>
     </section>
 
-    <section id="registration" class="section registration">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="section-title">Registration &amp; Pricing</h3>
-                </div>
-            </div>
-                
-            <form action="#" id="registration-form">
-                <div class="row">
-                    <div class="col-md-12" id="registration-msg" style="display:none;">
-                        <div class="alert"></div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="First Name" id="fname" name="fname" required>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Last Name" id="lname" name="lname" required>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email" id="email" name="email" required>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Phone" id="cell" name="cell" required>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Address" id="address" name="address" required>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Zip Code" id="zip" name="zip" required>
-                        </div>
-
-                        <div class="form-group">
-                            <select class="form-control" name="city" id="city" required>
-                                <option readonly>City</option>
-                                <option>City Name 1</option>
-                                <option>City Name 2</option>
-                                <option>City Name 3</option>
-                                <option>City Name 4</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <select class="form-control" name="program" id="program" required>
-                                <option readonly>Select Your Program</option>
-                                <option>Program Name 1</option>
-                                <option>Program Name 2</option>
-                                <option>Program Name 3</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center mt20">
-                    <button type="submit" class="btn btn-black" id="registration-submit-btn">Submit</button>
-                </div>
-            </form>
-        </div>
-    </section>
-
     <section id="contribution" class="section bg-image-2 contribution">
         <div class="container">
             <div class="row">
@@ -181,6 +114,88 @@
             </div>
         </div>
     </section>
+
+    <section id="registration" class="section registration">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Registration</h3>
+                </div>
+            </div>
+                
+            <form method="POST" action="{{ route('register') }}" id="registration-form">
+                @csrf
+                <div class="row">
+                    <div class="col-md-12" id="registration-msg" style="display:none;">
+                        <div class="alert"></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Full Name" id="name" @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email" id="email" @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                            @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Phone" id="cell" name="cell" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Involvement" id="involvement" name="involvement" required>
+                        </div>
+
+                        <div class="form-group">
+                            <select class="form-control" name="city" id="city" required>
+                                <option readonly>Register As</option>
+                                <option>Sona Member</option>
+                                <option>Architecture Student</option>
+                                <option>Non-SONA member Architect</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-6">
+
+                        <div class="form-group">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
+
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Re-type Password">
+                        </div>
+                        <div class="form-group">
+                            <textarea type="text" class="form-control" placeholder="Remarks" id="remarks" name="remarks" required></textarea> 
+                        </div>
+                        <div class="form-group">
+                            {!! NoCaptcha::display() !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt20">
+                    <button type="submit" class="btn btn-theme" id="registration-submit-btn">Submit</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    
 
     <section id="schedule" class="section schedule">
         <div class="container">
@@ -408,13 +423,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <p class="site-info"><br> Society Of Nepalese Architects> <span> | Habre Technology Pvt. Ltd.</span></p>
-                    <ul class="social-block">
-                        <li><a href=""><i class="ion-social-twitter"></i></a></li>
-                        <li><a href=""><i class="ion-social-facebook"></i></a></li>
-                        <li><a href=""><i class="ion-social-linkedin-outline"></i></a></li>
-                        <li><a href=""><i class="ion-social-googleplus"></i></a></li>
-                    </ul>
+                    <p class="site-info"><br>© Society Of Nepalese Architects <span style="font-size: 0.8em;"> | Developed By: <a href="http://habretech.com.np">Habre Technology Pvt. Ltd.</a></span></p>
                 </div>
             </div>
         </div>
@@ -495,5 +504,6 @@
 
         smoothScroll.init();
     </script>
+     {!! NoCaptcha::renderJs() !!}
 </body>
 </html>

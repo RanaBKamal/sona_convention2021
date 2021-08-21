@@ -18,7 +18,7 @@ Route::get('/', [PagesController::class, 'index']);
 Route::get('/page/{slug}', [PagesController::class, 'page']);
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

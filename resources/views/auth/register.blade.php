@@ -1,10 +1,14 @@
-@extends('layouts.app')
+<script>window.location = "/#registration";</script>
+@extends('layouts.master')
 
-@section('content')
+@section('page-content')
 <div class="container">
     <div class="row justify-content-center">
+        <div class="col-md-2">
+            
+        </div>
         <div class="col-md-8">
-            <div class="card">
+            <div  class="jumbotron" style="margin-top: 35px;">
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">

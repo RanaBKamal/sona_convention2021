@@ -51,13 +51,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <p class="site-info"><br> Society Of Nepalese Architects> <span> | Habre Technology Pvt. Ltd.</span></p>
-                    <ul class="social-block">
-                        <li><a href=""><i class="ion-social-twitter"></i></a></li>
-                        <li><a href=""><i class="ion-social-facebook"></i></a></li>
-                        <li><a href=""><i class="ion-social-linkedin-outline"></i></a></li>
-                        <li><a href=""><i class="ion-social-googleplus"></i></a></li>
-                    </ul>
+                    <p class="site-info"><br>© Society Of Nepalese Architects <span style="font-size: 0.8em;"> | Developed By: <a href="http://habretech.com.np">Habre Technology Pvt. Ltd.</a></span></p>
                 </div>
             </div>
         </div>
