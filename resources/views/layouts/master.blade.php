@@ -39,6 +39,43 @@
             </div><!-- /.navbar-header -->
 
             <div class="collapse navbar-collapse" id="navbar-items">
+                @if (Route::has('login'))
+                    <ul class="nav navbar-nav navbar-right">
+                        @auth
+                            <li class="dropdown">
+                                <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    @php 
+                                        $arr = explode(' ', trim(auth()->user()->name));
+                                        echo $arr[0];
+                                    @endphp
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <div class="text-center">
+                                            <a href="{{ route('home') }}" class="text-sm btn">Dashboard</a>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <div class="text-center">
+                                                <button type="submit" class="btn btn-sm" style="margin-top: 5px;">Logout</button>
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @else
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
+                                </li>
+                            </ul>
+                        @endauth
+                    </ul>
+                @endif
                 {{menu('Main_nav_menu', 'my_menu')}}
             </div>
         </div><!-- /.container -->

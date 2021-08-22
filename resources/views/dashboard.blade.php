@@ -38,6 +38,43 @@
             </div><!-- /.navbar-header -->
 
             <div class="collapse navbar-collapse" id="navbar-items">
+                @if (Route::has('login'))
+                    <ul class="nav navbar-nav navbar-right">
+                        @auth
+                            <li class="dropdown">
+                                <a href="{{ route('home') }}" class="text-sm text-gray-700 underline" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    @php 
+                                        $arr = explode(' ', trim(auth()->user()->name));
+                                        echo $arr[0];
+                                    @endphp
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <div class="text-center">
+                                            <a href="{{ route('home') }}" class="text-sm btn">Dashboard</a>
+                                        </div>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <div class="text-center">
+                                                <button type="submit" class="btn btn-sm" style="margin-top: 5px;">Logout</button>
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @else
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
+                                </li>
+                            </ul>
+                        @endauth
+                    </ul>
+                @endif
                 {{menu('Main_nav_menu', 'my_menu')}}
             </div>
         </div><!-- /.container -->
@@ -101,7 +138,7 @@
         </div>
     </section>
 
-    <section id="contribution" class="section bg-image-2 contribution">
+    <section id="contribution" class="section bg-image-2 contribution" style="background-image: url({{Voyager::image(setting('site.home_theme_image'))}});">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -109,7 +146,7 @@
                     
                     <p>You've inspired new consumer, racked up click-thru's, blown-up brand awareness. We can't give you back the weekends you worked, or erase the pain of being forced to make the logo bigger. But if you submit your best work.</p>
 
-                    <a class="btn btn-white" href="#">Submit</a>
+                    <a  href="{{ route('home') }}" class="btn btn-white">Submit</a>
                 </div>
             </div>
         </div>
@@ -131,7 +168,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Full Name" id="name" @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            <input type="text" class="form-control" placeholder="Full Name" id="name" @error('name') is-invalid @enderror name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -140,27 +177,37 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email" id="email" @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                            <input type="email" class="form-control" placeholder="Email" id="email" @error('email') is-invalid @enderror name="email" value="{{ old('email') }}" required autocomplete="email">
                             @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Phone" id="cell" name="cell" required>
+                            <input type="text" class="form-control" placeholder="Phone" id="phone" @error('phone') is-invalid @enderror name="phone" value="{{ old('phone') }}" required autocomplete="phone">
+                            @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Involvement" id="involvement" name="involvement" required>
+                            <input type="text" class="form-control" placeholder="Involvement" id="involvement" @error('involvement') is-invalid @enderror name="involvement" value="{{ old('involvement') }}" required autocomplete="involvement">
+                            @error('involvement')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
                         <div class="form-group">
-                            <select class="form-control" name="city" id="city" required>
-                                <option readonly>Register As</option>
-                                <option>Sona Member</option>
-                                <option>Architecture Student</option>
-                                <option>Non-SONA member Architect</option>
+                            <select class="form-control" name="register_as" id="register_as" required>
+                                <option readonly value="none">Register As</option>
+                                <option value="Sona Member">Sona Member</option>
+                                <option value="Architecture Student">Architecture Student</option>
+                                <option value="Non-SONA member Architect">Non-SONA member Architect</option>
                             </select>
                         </div>
 
@@ -181,55 +228,64 @@
                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Re-type Password">
                         </div>
                         <div class="form-group">
-                            <textarea type="text" class="form-control" placeholder="Remarks" id="remarks" name="remarks" required></textarea> 
+                            <textarea type="text" class="form-control" placeholder="Remarks" id="remarks" @error('remarks') is-invalid @enderror" name="remarks"  required autocomplete="remarks" placeholder="remarks">
+                                {{ old('remarks') }}
+                            </textarea> 
                         </div>
                         <div class="form-group">
-                            {!! NoCaptcha::display() !!}
+                            <div class="captcha">
+                                <span>{!! captcha_img() !!}</span>
+                                <button type="button" class="btn btn-danger" class="reload" id="reload">
+                                    &#x21bb;
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input id="captcha" type="text" class="form-control" placeholder="Enter Sum" name="captcha">
+                            @error('captcha')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                 </div>
                 <div class="text-center mt20">
-                    <button type="submit" class="btn btn-theme" id="registration-submit-btn">Submit</button>
+                    <button  type="submit" class="btn btn-theme" id="registration-submit-btn">Submit</button>
                 </div>
             </form>
         </div>
     </section>
 
-    
-
-    <section id="schedule" class="section schedule">
+    <section id="faq" class="section faq">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="section-title">Event Schedule</h3>
+                    <h3 class="section-title">Event FAQs</h3>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 col-sm-6">
-                    <div class="schedule-box">
-                        <div class="time">
-                            <time datetime="09:00">09:00 am</time> - <time datetime="22:00">10:00 am</time>
-                        </div>
-                        <h3>Welcome and intro</h3>
-                        <p>Mustafizur Khan, SD Asia</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="schedule-box">
-                        <div class="time">
-                            <time datetime="10:00">10:00 am</time> - <time datetime="22:00">10:00 am</time>
-                        </div>
-                        <h3>Tips and share</h3>
-                        <p>Mustafizur Khan, SD Asia</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="schedule-box">
-                        <div class="time">
-                            <time datetime="10:00">10:00 am</time> - <time datetime="22:00">10:00 am</time>
-                        </div>
-                        <h3>View from the top</h3>
-                        <p>Mustafizur Khan, SD Asia</p>
+                <div class="col-md-12">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        @if($event_faqs->isNotEmpty())
+                            @foreach($event_faqs as $faq)
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                        <h4 class="panel-title">
+                                            <a class="faq-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$loop->index}}" aria-expanded="true" aria-controls="collapseOne"> {{$faq->question}}</a>
+                                        </h4>
+                                    </div>
+
+                                    <div id="collapse{{$loop->index}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body">
+                                            {{$faq->answer}}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <h4 class="text-center">No Faqs</h4>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -243,178 +299,17 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-3">
-                    <a class="partner-box partner-box-1"></a>
-                </div>
-                <div class="col-sm-3">
-                    <a class="partner-box partner-box-2"></a>
-                </div>
-                <div class="col-sm-3">
-                    <a class="partner-box partner-box-3"></a>
-                </div>
-                <div class="col-sm-3">
-                    <a class="partner-box partner-box-4"></a>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-3">
-                    <a class="partner-box partner-box-5"></a>
-                </div>
-                <div class="col-sm-3">
-                    <a class="partner-box partner-box-6"></a>
-                </div>
-                <div class="col-sm-3">
-                    <a class="partner-box partner-box-7"></a>
-                </div>
-                <div class="col-sm-3">
-                    <a class="partner-box partner-box-8"></a>
-                </div>
-            </div>   
-    </section>
-
-    <section id="faq" class="section faq">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="section-title">Event FAQs</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                        
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingOne">
-                                <h4 class="panel-title">
-                                    <a class="faq-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> What is the price of the ticket ?</a>
-                                </h4>
-                            </div>
-
-                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                                <div class="panel-body">
-                                    <h3>Hello</h3>
-                                    <p>Lorem Ipsum</p>
-                                </div>
-                            </div>
+                @if($event_partners->isNotEmpty())
+                    @foreach($event_partners as $partner)
+                        <div class="col-sm-3">
+                            <a class="partner-box" style="background-image: url({{Voyager::image($partner->image)}});"></a>
                         </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingTwo">
-                                <h4 class="panel-title">
-                                    <a class="faq-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> What is included in my ticket ?</a>
-                                </h4>
-                            </div>
-
-                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                <div class="panel-body">Hello</div>
-                            </div>
-                        </div>
-  
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingThree">
-                                <h4 class="panel-title">
-                                    <a class="faq-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> Office address ?</a>
-                                </h4>
-                            </div>
-
-                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                <div class="panel-body">Hello</div>
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingFour">
-                                <h4 class="panel-title">
-                                    <a class="faq-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour"> How should I dress ?</a>
-                                </h4>
-                            </div>
-
-                            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                                <div class="panel-body">Hello</div>
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingFive">
-                                <h4 class="panel-title">
-                                    <a class="faq-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive"> I have specific questions that are not addressed here. Who can help me ?</a>
-                                </h4>
-                            </div>
-
-                            <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
-                                <div class="panel-body">Hello</div>
-                            </div>
-                        </div>
+                    @endforeach
+                @else
+                    <div class="col-md-12">
+                        <h4 class="text-center">No Event Partners</h4>
                     </div>
-                </div>
-            </div>
-    </section>
-
-    <section id="photos" class="section photos">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="section-title">Photos</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <ul class="grid">
-                        
-                        <li class="grid-item grid-item-sm-6">
-                            <img alt="" class="img-responsive center-block" src="assets/images/photos/photos-1.jpg">
-                        </li>
-
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="assets/images/photos/photos-2.jpg">
-                        </li>
-
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="assets/images/photos/photos-3.jpg">
-                        </li>
-                    
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="assets/images/photos/photos-5.jpg">
-                        </li>
-
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="assets/images/photos/photos-6.jpg">
-                        </li>
-
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="assets/images/photos/photos-7.jpg">
-                        </li>
-
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="assets/images/photos/photos-8.jpg">
-                        </li>
-
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="assets/images/photos/photos-2.jpg">
-                        </li>
-
-                        <li class="grid-item grid-item-sm-3">
-                            <img alt="" class="img-responsive center-block" src="assets/images/photos/photos-3.jpg">
-                        </li>
-                    </ul>
-                </div>
-            </div>            
-        </div>
-    </section>
-
-    <section id="location" class="section location">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-3">
-                    <h3 class="section-title">Event Location</h3>
-                    <address>
-                        <p>Eardenia<br> The Grand Hall<br> House # 08, Road #52, Street<br> Phone: +1159t3764<br> Email: example@mail.com</p>
-                    </address>
-                </div>
-                <div class="col-sm-9">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96706.50013548559!2d-78.9870674333782!3d40.76030630398601!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited+States!5e0!3m2!1sen!2sbd!4v1436299406518" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-                </div>
+                @endif
             </div>
         </div>
     </section>
@@ -434,6 +329,15 @@
     <script src="{{asset('js/smooth-scroll/dist/js/smooth-scroll.min.js')}}"></script>
 
     <script>
+        $('#reload').on('click', function () {
+            $.ajax({
+                type: 'GET',
+                url: 'reload-captcha',
+                success: function (data) {
+                    $(".captcha span").html(data.captcha);
+                }
+            });
+        });
         /*
          * Change Navbar color while scrolling
         */
@@ -457,46 +361,6 @@
             }
         }
 
-        /*
-         * Registration Form
-        */
-
-        $('#registration-form').submit(function(e){
-            e.preventDefault();
-            
-            var postForm = { //Fetch form data
-                    'fname'     : $('#registration-form #fname').val(),
-                    'lname'     : $('#registration-form #lname').val(),
-                    'email'     : $('#registration-form #email').val(),
-                    'cell'      : $('#registration-form #cell').val(),
-                    'address'   : $('#registration-form #address').val(),
-                    'zip'       : $('#registration-form #zip').val(),
-                    'city'      : $('#registration-form #city').val(),
-                    'program'   : $('#registration-form #program').val()
-            };
-
-            $.ajax({
-                    type      : 'POST',
-                    url       : './assets/php/contact.php',
-                    data      : postForm,
-                    dataType  : 'json',
-                    success   : function(data) {
-                                    if (data.success) {
-                                        $('#registration-msg .alert').html("Registration Successful");
-                                        $('#registration-msg .alert').removeClass("alert-danger");
-                                        $('#registration-msg .alert').addClass("alert-success");
-                                        $('#registration-msg').show();
-                                    }
-                                    else
-                                    {
-                                        $('#registration-msg .alert').html("Registration Failed");
-                                        $('#registration-msg .alert').removeClass("alert-success");
-                                        $('#registration-msg .alert').addClass("alert-danger");
-                                        $('#registration-msg').show();
-                                    }
-                                }
-                });
-        });
 
         /*
          * SmoothScroll
@@ -504,6 +368,6 @@
 
         smoothScroll.init();
     </script>
-     {!! NoCaptcha::renderJs() !!}
+
 </body>
 </html>
