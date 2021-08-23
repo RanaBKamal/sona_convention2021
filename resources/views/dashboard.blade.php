@@ -98,17 +98,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-
-                    <h3 class="section-title">Speakers</h3>
-                
+                    <h3 class="section-title"><span>Keynote Speakers</span></h3>                    
                 </div>
             </div>
 
             <div class="row">
-                @if($speakers->isNotEmpty())
-                    @foreach($speakers as $speaker)
-                        <div class="col-md-4">
-                            <div class="speaker">
+                @if($keynote_speakers->isNotEmpty())
+                    @foreach($keynote_speakers as $speaker)
+                        <div class="col-md-3">
+                            <div class="speaker-new">
 
                                 <figure>
                                     <img alt="{{$speaker->name}}" class="img-responsive center-block" src="{{Voyager::image($speaker->image)}}">
@@ -116,15 +114,42 @@
 
                                 <h4>{{$speaker->name}}</h4>
 
-                                <p>{{$speaker->conference_designation}}</p>
-                                <p>{{$speaker->title}}</p>
+                                <p>{{$speaker->designation}}</p>
+                                <p>{{$speaker->description}}</p>
 
-                                <ul class="social-block">
-                                    <li><a href=""><i class="ion-email"></i></a> {{$speaker->email}}</li>
-                                </ul>
-                                <ul class="social-block">
-                                    <li><a href=""><i class="ion-ios-telephone"></i></a> {{$speaker->phone}}</li>
-                                </ul>
+                            </div><!-- /.speaker -->
+                        </div><!-- /.col-md-4 -->
+                    @endforeach
+                @else
+                    <div class="col-md-12">
+                        <h5 style="text-align:center;">No Speakers Found.</h5>
+                    </div>
+                @endif
+            </div><!-- /.row -->
+        </div>
+    </section>
+    <section id="speakers" class="section speakers">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title"><span>Invited Speakers</span></h3>                    
+                </div>
+            </div>
+
+            <div class="row">
+                @if($invited_speakers->isNotEmpty())
+                    @foreach($invited_speakers as $speaker)
+                        <div class="col-md-3">
+                            <div class="speaker-new">
+
+                                <figure>
+                                    <img alt="{{$speaker->name}}" class="img-responsive center-block" src="{{Voyager::image($speaker->image)}}">
+                                </figure>
+
+                                <h4>{{$speaker->name}}</h4>
+
+                                <p>{{$speaker->designation}}</p>
+                                <p>{{$speaker->description}}</p>
 
                             </div><!-- /.speaker -->
                         </div><!-- /.col-md-4 -->

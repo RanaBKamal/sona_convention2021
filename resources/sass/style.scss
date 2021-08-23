@@ -153,7 +153,6 @@ ul.social-block li{
   text-transform: uppercase;
   text-align: center !important;
 }
-
 /* 
  * 3.0 Helper Class
  */
@@ -432,6 +431,30 @@ ul.social-block li{
 }
 .speaker img:hover {
   opacity: .7;
+}
+
+.speaker-new {
+  text-align: center;
+  color: #313131;
+  margin: 20px;
+}
+.speaker-new h4 {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+.speaker-new p {
+  margin-bottom: 5px;
+}
+.speaker-new img{
+  border-radius: 50%;
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  cursor: pointer;
+}
+.speaker-new img:hover {  
+  filter: none;
+  -webkit-filter: none;
 }
 
 /* 

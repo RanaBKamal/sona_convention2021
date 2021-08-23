@@ -23,6 +23,34 @@
 					echo $page->body;
 				@endphp
 			</div>
+			<div class="col-12" style="margin-top:30px;">
+				@if($about_us_members->isNotEmpty())
+					<div class="row">
+						@foreach($about_us_members as $speaker)
+	                        <div class="col-md-3">
+	                            <div class="speaker-new">
+
+	                                <figure>
+	                                    <img alt="{{$speaker->name}}" class="img-responsive center-block" src="{{Voyager::image($speaker->image)}}">
+	                                </figure>
+
+	                                <h4>{{$speaker->name}}</h4>
+
+	                                <p>{{$speaker->conference_designation}}</p>
+	                                <h4>{{$speaker->title}}</h4>
+		                             <ul class="social-block">
+	                                    <li><a href=""><i class="ion-email"></i></a>{{$speaker->email}}</li>
+	                                </ul>
+	                                <ul class="social-block">
+	                                    <li><a href=""><i class="ion-ios-telephone"></i></a>{{$speaker->phone}}</li>
+	                                </ul>
+	                            </div><!-- /.speaker -->
+	                        </div><!-- /.col-md-4 -->
+	                    @endforeach
+					</div>
+				@endif
+					
+			</div>
 		</div>
 	</div>
 @stop
