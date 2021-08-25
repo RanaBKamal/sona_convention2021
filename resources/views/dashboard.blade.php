@@ -94,6 +94,25 @@
         </div>
     </header>
 
+    <section id="about-us" class="section about">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <h3 class="section-title">About Us</h3>
+
+                    <p class="text-center">The world is changing fast and unexpectedly. The new global challenges of today are more complex than of yesterdays and challenges of tomorrow are waiting with unprecedented actions. The recent pandemic has taught a global lesson and our priorities and societal edifices have changed a lot. Challenges of pandemics are coupled with impacts of disasters such as landslides, flooding, and earthquakes. Being stuck inside a house for almost 2 years has given us more time to rethink our habitat and surroundings. In this background, architecture as the most dynamic and responsive entity of art and creativity holds the pinnacle of responsibility and inevitability to the changing global scenarios.
+                    </p>
+                </div><!-- /.col-sm-6 -->
+                <div class="col-sm-12">
+                    <div style="width:100px;margin: 0 auto;">
+                        <a class="btn btn-theme" style="width: 100%;" href="/page/about-us">View</a>
+                    </div>
+                </div>
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section>
+
     <section id="speakers" class="section speakers">
         <div class="container">
             <div class="row">

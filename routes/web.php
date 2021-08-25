@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\CaptchaServiceController;
+use App\Http\Controllers\WorkFilesController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +25,8 @@ Auth::routes(['verify' => true]);
 Route::get('/reload-captcha', [CaptchaServiceController::class, 'reloadCaptcha']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::post('/work_files', [HomeController::class, 'storeWorkFile'])->middleware(['auth', 'verified']);
+Route::get('/work_files/{id}', [HomeController::class, 'destroyWorkFile'])->middleware(['auth', 'verified']);
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
