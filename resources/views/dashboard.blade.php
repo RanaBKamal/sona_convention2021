@@ -212,7 +212,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Full Name" id="name" @error('name') is-invalid @enderror name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            <input type="text" class="form-control" placeholder="Full Name" id="name" @error('name') is-invalid @enderror name="name" value="{{ old('name') }}" required autocomplete="name">
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
