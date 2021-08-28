@@ -188,7 +188,7 @@
                 <div class="col-md-12">
                     <h3 class="text-uppercase mt0 font-400">Submit Your Contribution Work</h3>
                     
-                    <p>You've inspired new consumer, racked up click-thru's, blown-up brand awareness. We can't give you back the weekends you worked, or erase the pain of being forced to make the logo bigger. But if you submit your best work.</p>
+                    <p>Abstracts from a wide range of architecture fields are encouraged for submission. The conference theme tracks are mentioned above and it is intended to bring diversity in content as well as context in the discussion. We are hopeful that the “response” of architecture practice is an impactful theme in addressing the global context of change.The authors are requested to choose at least one theme track. This will help us to identify the potential reviewer as well as group the convention schedule according to theme.</p>
 
                     <a  href="{{ route('home') }}" class="btn btn-white">Submit</a>
                 </div>
