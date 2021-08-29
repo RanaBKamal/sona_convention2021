@@ -5,6 +5,7 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\CaptchaServiceController;
 use App\Http\Controllers\WorkFilesController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EsewaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,12 @@ Route::get('/work_files/{id}', [HomeController::class, 'destroyWorkFile'])->midd
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+});
+
+//routes for the payment
+Route::prefix('user')->middleware(['auth', 'verified'])->group(function(){
+    Route::prefix('payment')->group(function(){
+        Route::get('esewa_payment_success', [EsewaController::class, 'esewaPaymentSuccess'])->name('esewa-payment-success');
+        Route::get('esewa_payment_failed', [EsewaController::class, 'esewaPaymentFailed'])->name('esewa-payment-failed');
+    }); 
 });

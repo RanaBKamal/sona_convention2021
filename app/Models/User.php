@@ -45,4 +45,8 @@ class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    //relationship with payments
+    public function payments(){
+        return $this->hasMany(Payment::class, 'payee_id', 'id');
+    }
 }

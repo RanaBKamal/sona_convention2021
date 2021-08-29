@@ -7,6 +7,48 @@
             <div class="jumbotron">
                 <div class="row">
                     <div class="col-md-12">
+                        <h3 class="section-title">Pay your registration fee</h3>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <label style="display:block;padding-top: 30px;">Renew/Pay with</label>
+                                <img src="{{asset('/images/esewa_logo.png')}}" style="background:black;padding: 5px;border-radius: 4px; margin-bottom: 10px;">
+                                <form action="{{config('payment.esewa.url')}}" method="POST">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <select onchange="typeSelected(event)" class="form-control">
+                                                <option >Select Who you are?</option>
+                                                <option value="1500">SONA members</option>
+                                                <option value="500">Students</option>
+                                                <option value="3000">Non-sona members/Institutions</option>
+                                            </select>
+                                            <label>Total Fee</label>
+                                            <input value="0" name="tAmt" type="text" id="totalAmount" disabled class="form-control">
+                                            <input value="0" name="amt" type="hidden" id="amount">  
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <input value="0" name="txAmt" type="hidden">
+                                    <input value="0" name="psc" type="hidden">
+                                    <input value="0" name="pdc" type="hidden">
+                                    <input value="{{config('payment.esewa.scd')}}" name="scd" type="hidden">
+                                    <input value="{{Str::uuid()}}" name="pid" type="hidden">
+                                    <input value="{{config('payment.esewa.su')}}" type="hidden" name="su">
+                                    <input value="{{config('payment.esewa.fu')}}" type="hidden" name="fu">
+                                    <input value="Submit" type="submit" class="btn btn-success" id="submitButton">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="row justify-content-center">
+        <div class="col-md-12" style="margin-top:20px;">
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-md-12">
                         <h3 class="section-title">Submit your work</h3>
                     </div>
                     <div class="col-md-12">
@@ -264,3 +306,14 @@
     </div>
 </div>
 @endsection
+@section('js')
+    <script>
+        var submitButton = document.getElementById("submitButton");
+        submitButton.classList.add("disabled");
+        function typeSelected(event){
+            document.getElementById("totalAmount").value = event.target.value;
+            document.getElementById("amount").value = event.target.value;
+            submitButton.classList.remove("disabled");
+        }
+    </script>
+@stop
