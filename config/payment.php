@@ -16,11 +16,11 @@ return [
     ],
 
     'esewa' => [
-        'url'                  => 'https://uat.esewa.com.np/epay/main',
+        'url'                  => 'https://esewa.com.np/epay/main',
         'renewal_fee'          => 1000,
-        'scd'                  => 'EPAYTEST',
+        'scd'                  => 'NP-ES-SONAA',
         'su'                   => env('APP_URL', 'https://convention2021.sona.org.np').'/user/payment/esewa_payment_success',
         'fu'                   => env('APP_URL', 'https://convention2021.sona.org.np').'/user/payment/esewa_payment_failed',
-        'verify_url'           => 'https://uat.esewa.com.np/epay/transrec',
+        'verify_url'           => 'https://esewa.com.np/epay/transrec',
     ],
 ];

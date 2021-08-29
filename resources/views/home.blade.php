@@ -23,12 +23,12 @@
                                                 <option value="500">Students</option>
                                                 <option value="3000">Non-sona members/Institutions</option>
                                             </select>
-                                            <label>Total Fee</label>
-                                            <input value="0" name="tAmt" type="text" id="totalAmount" disabled class="form-control">
-                                            <input value="0" name="amt" type="hidden" id="amount">  
+                                            <label>Total Fee : <b id="totalAmountShow"></b></label>  
                                         </div>
                                     </div>
                                     <hr>
+                                    <input value="0" name="tAmt" type="hidden" id="totalAmount">
+                                    <input value="0" name="amt" type="hidden" id="amount">
                                     <input value="0" name="txAmt" type="hidden">
                                     <input value="0" name="psc" type="hidden">
                                     <input value="0" name="pdc" type="hidden">
@@ -312,6 +312,7 @@
         submitButton.classList.add("disabled");
         function typeSelected(event){
             document.getElementById("totalAmount").value = event.target.value;
+            document.getElementById("totalAmountShow").innerHTML = event.target.value;
             document.getElementById("amount").value = event.target.value;
             submitButton.classList.remove("disabled");
         }
