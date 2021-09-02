@@ -3,49 +3,7 @@
 @section('page-content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12" style="margin-top:20px;">
-            <div class="jumbotron">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3 class="section-title">Pay your registration fee</h3>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <label style="display:block;padding-top: 30px;">Renew/Pay with</label>
-                                <img src="{{asset('/images/esewa_logo.png')}}" style="background:black;padding: 5px;border-radius: 4px; margin-bottom: 10px;">
-                                <form action="{{config('payment.esewa.url')}}" method="POST">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <select onchange="typeSelected(event)" class="form-control">
-                                                <option >Select Who you are?</option>
-                                                <option value="1500">SONA members</option>
-                                                <option value="500">Students</option>
-                                                <option value="3000">Non-sona members/Institutions</option>
-                                            </select>
-                                            <label>Total Fee : <b id="totalAmountShow"></b></label>  
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <input value="0" name="tAmt" type="hidden" id="totalAmount">
-                                    <input value="0" name="amt" type="hidden" id="amount">
-                                    <input value="0" name="txAmt" type="hidden">
-                                    <input value="0" name="psc" type="hidden">
-                                    <input value="0" name="pdc" type="hidden">
-                                    <input value="{{config('payment.esewa.scd')}}" name="scd" type="hidden">
-                                    <input value="{{Str::uuid()}}" name="pid" type="hidden">
-                                    <input value="{{config('payment.esewa.su')}}" type="hidden" name="su">
-                                    <input value="{{config('payment.esewa.fu')}}" type="hidden" name="fu">
-                                    <input value="Submit" type="submit" class="btn btn-success" id="submitButton">
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <div class="row justify-content-center">
-        <div class="col-md-12" style="margin-top:20px;">
+        <div class="col-md-8" style="margin-top:20px;">
             <div class="jumbotron">
                 <div class="row">
                     <div class="col-md-12">
@@ -58,8 +16,6 @@
                     </div>
                 </div>
             </div>
-        </div>            
-        <div class="col-md-12">
             <div class="jumbotron">
                 <section class="section registration">
                     <div class="container">
@@ -178,8 +134,6 @@
                     </div>
                 </section>
             </div>
-        </div>
-        <div class="col-md-12">
             <div class="jumbotron">
                 <section class="section registration">
                     <div class="container">
@@ -301,8 +255,49 @@
                         </div>   
                     </div>
                 </section>
+            </div>    
+        </div>  
+        <div class="col-md-4" style="margin-top:20px;">
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="section-title">Pay your registration fee</h3>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <label style="display:block;padding-top: 30px;">Pay with</label>
+                                <img src="{{asset('/images/esewa_logo.png')}}" style="background:black;padding: 5px;border-radius: 4px; margin-bottom: 10px;">
+                                <form action="#" method="POST">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <select onchange="typeSelected(event)" class="form-control">
+                                                <option >Select Who you are?</option>
+                                                <option value="1500">NGS members</option>
+                                                <option value="500">Non-NGS participant</option>
+                                                <option value="3000">Geotechnical Student</option>
+                                            </select>
+                                            <label>Total Fee : <b id="totalAmountShow"></b></label>  
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <input value="0" name="tAmt" type="hidden" id="totalAmount">
+                                    <input value="0" name="amt" type="hidden" id="amount">
+                                    <input value="0" name="txAmt" type="hidden">
+                                    <input value="0" name="psc" type="hidden">
+                                    <input value="0" name="pdc" type="hidden">
+                                    <input value="{{config('payment.esewa.scd')}}" name="scd" type="hidden">
+                                    <input value="{{Str::uuid()}}" name="pid" type="hidden">
+                                    <input value="{{config('payment.esewa.su')}}" type="hidden" name="su">
+                                    <input value="{{config('payment.esewa.fu')}}" type="hidden" name="fu">
+                                    <input value="Submit" type="submit" class="btn btn-success" id="submitButton">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </div>          
     </div>
 </div>
 @endsection

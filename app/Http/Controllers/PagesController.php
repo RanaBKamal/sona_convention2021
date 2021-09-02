@@ -29,7 +29,7 @@ class PagesController extends Controller
         if (strcmp($slug, 'about-us') == 0) {
             $about_us_members = Speaker::orderBy('display_order', 'ASC')->get();    
         }else{
-            $about_us_members = [[]];
+            $about_us_members = Speaker::where('id', '=', -1)->get();
         }
         
         $page = Page::where('slug', '=', $slug)->firstOrFail();

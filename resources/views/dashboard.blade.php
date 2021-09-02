@@ -93,7 +93,22 @@
         
         </div>
     </header>
-
+    <section id="coutdown" class="section countdown">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                        <span class="divTimerTitle">
+                            The Countdown is on
+                        </span>
+                    <div class="div-timer-wrapper">
+                        <span id="divTimer" class="divTimer">
+                            
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section id="about-us" class="section about">
         <div class="container">
             <div class="row">
@@ -346,7 +361,7 @@
                 @if($event_partners->isNotEmpty())
                     @foreach($event_partners as $partner)
                         <div class="col-sm-3">
-                            <a class="partner-box" style="background-image: url({{Voyager::image($partner->image)}});"></a>
+                            <a href="{{$partner->links}}" class="partner-box" style="background-image: url({{Voyager::image($partner->image)}});"></a>
                         </div>
                     @endforeach
                 @else
@@ -354,6 +369,36 @@
                         <h4 class="text-center">No Event Partners</h4>
                     </div>
                 @endif
+            </div>
+        </div>
+    </section>
+    <section id="social" class="section social">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Connect With {{setting('site.description')}}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3"></div>
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    <ul class="social-block" style="width:19%;display: inline-block;margin: 0;">
+                        <li><a href="{{setting('site.social_linkedin')}}"><i class="ion-social-linkedin"></i></a></li>
+                    </ul>
+                    <ul class="social-block"  style="width:19%;display: inline-block;margin: 0;">
+                        <li><a href="{{setting('site.social_facebook')}}"><i class="ion-social-facebook"></i></a></li>
+                    </ul>
+                    <ul class="social-block"  style="width:19%;display: inline-block;margin: 0;">
+                        <li><a href="{{setting('site.social_twitter')}}"><i class="ion-social-twitter"></i></a></li>
+                    </ul>
+                    <ul class="social-block"  style="width:19%;display: inline-block;margin: 0;">
+                        <li><a href="{{setting('site.social_instagram')}}"><i class="ion-social-instagram"></i></a></li>
+                    </ul>
+                    <ul class="social-block"  style="width:19%;display: inline-block;margin: 0;">
+                        <li><a href="mailto:ngeotechs@gmail.com"><i class="ion-email"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3"></div>
             </div>
         </div>
     </section>
@@ -411,6 +456,14 @@
         */
 
         smoothScroll.init();
+    </script>
+    <script src="{{asset('js/countdown.min.js')}}"></script>
+    <script>
+        function calculateAndUpdateDateTime(){
+            var divTimerElement = document.getElementById('divTimer');
+            divTimerElement.innerHTML = countdown( new Date({{setting('site.date_for_countdown')}}) ).toString();
+        }
+        setInterval(calculateAndUpdateDateTime, 500);
     </script>
 
 </body>
